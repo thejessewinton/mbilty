@@ -1,21 +1,46 @@
 // src/pages/_app.tsx
 import { withTRPC } from '@trpc/next';
+
 import type { AppRouter } from '../server/router';
-import type { AppType } from 'next/dist/shared/lib/utils';
-import superjson from 'superjson';
-import { SessionProvider } from 'next-auth/react';
+
 import '../styles/globals.css';
-import { Header } from '../components/header/Header';
+
+import type { AppType } from 'next/dist/shared/lib/utils';
+import { SessionProvider } from 'next-auth/react';
+import superjson from 'superjson';
+import { Toaster } from 'react-hot-toast';
+import { DefaultSeo } from 'next-seo';
+import { config } from '../../site.config';
+import { Default } from '@components/layouts/Default';
 
 const MyApp: AppType = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {
   return (
-    <SessionProvider session={session}>
-      <Header />
-      <Component {...pageProps} />
-    </SessionProvider>
+    <>
+      <DefaultSeo {...config} />
+      <SessionProvider session={session}>
+        <Default>
+          <Toaster
+            position="bottom-left"
+            gutter={8}
+            toastOptions={{
+              duration: 5000,
+              style: {
+                background: '#111111',
+                color: '#fff',
+                border: '1px solid #333333',
+                paddingLeft: '1rem',
+                paddingRight: '1rem',
+              },
+            }}
+          />
+
+          <Component {...pageProps} />
+        </Default>
+      </SessionProvider>
+    </>
   );
 };
 

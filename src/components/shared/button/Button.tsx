@@ -6,6 +6,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   to?: string;
   icon?: React.ReactNode;
   iconPosition?: 'left' | 'right';
+  type?: 'button' | 'submit' | 'reset';
   target?: React.HTMLAttributeAnchorTarget;
 }
 
@@ -16,13 +17,14 @@ export const Button = ({
   target,
   className,
   children,
+  type = 'button',
   ...rest
 }: ButtonProps) => {
   const isLink = typeof to !== 'undefined';
   const isExternal = isLink && /^((https?:)?\/\/|[0-9a-zA-Z]+:)/.test(to || '');
 
   const buttonStyles = classNames(
-    'bg-accent-green text-white py-2 px-2.5 font-bold hover:bg-accent-beige hover:text-gray-100 transition-colors disabled:cursor-not-allowed',
+    'py-2 px-4 max-h-12 w-fit h-fit font-medium rounded-md !bg-neutral-900 text-white transition-colors hover:!bg-neutral-700',
     className
   );
 
@@ -54,7 +56,7 @@ export const Button = ({
   }
 
   return (
-    <button className={buttonStyles} {...rest}>
+    <button className={buttonStyles} type={type} {...rest}>
       {iconPosition === 'left' && icon && <> {icon}</>}
       {children}
       {iconPosition === 'right' && icon && <>{icon}</>}

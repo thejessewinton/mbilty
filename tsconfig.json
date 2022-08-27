@@ -19,7 +19,7 @@
     "paths": {
       "@components/*": ["src/components/*"],
       "@pages/*": ["src/pages/*"],
-      "@utils/*": ["src/utils/*"],
+      "@utils/*": ["src/client-data/utils/*"],
       "@types/*": ["src/types/*"],
       "@server/*": ["src/server/*"]
     }

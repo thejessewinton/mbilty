@@ -11,24 +11,28 @@ import superjson from 'superjson';
 import { Toaster } from 'react-hot-toast';
 import { DefaultSeo } from 'next-seo';
 import { config } from '../../site.config';
-import { Default } from '@components/layouts/Default';
+import {
+  contentID,
+  SkipToContent,
+} from '@components/shared/skip-to-content/SkipToContent';
+import { Header } from '@components/layout/header/Header';
 
-const MyApp: AppType = ({
-  Component,
-  pageProps: { session, ...pageProps },
-}) => {
+const App: AppType = ({ Component, pageProps: { session, ...pageProps } }) => {
   return (
     <>
       <DefaultSeo {...config} />
       <SessionProvider session={session}>
-        <Default>
+        <div className="flex min-h-screen grow flex-col">
+          <SkipToContent />
+          <Header />
+          <div id={contentID} />
           <Toaster
             position="bottom-left"
             gutter={8}
             toastOptions={{
               duration: 5000,
               style: {
-                background: '#111111',
+                background: '#171717',
                 color: '#fff',
                 border: '1px solid #333333',
                 paddingLeft: '1rem',
@@ -38,7 +42,7 @@ const MyApp: AppType = ({
           />
 
           <Component {...pageProps} />
-        </Default>
+        </div>
       </SessionProvider>
     </>
   );
@@ -71,4 +75,4 @@ export default withTRPC<AppRouter>({
    * @link https://trpc.io/docs/ssr
    */
   ssr: false,
-})(MyApp);
+})(App);

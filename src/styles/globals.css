@@ -9,37 +9,13 @@ html {
 }
 
 body {
-  @apply relative m-0 w-screen text-base font-normal leading-6 bg-gray-100 text-white;
+  @apply relative m-0 w-screen text-base font-normal leading-6 bg-white text-gray-800 dark:bg-neutral-800 dark:text-white;
 }
 
 a {
   @apply no-underline transition-colors;
 }
 
-h1 {
-  @apply text-h1;
-}
-
-h2 {
-  @apply text-h2;
-}
-
-h3 {
-  @apply text-h3;
-}
-
-h4 {
-  @apply text-h4;
-}
-
-h5 {
-  @apply text-h5;
-}
-
-h6 {
-  @apply text-h6;
-}
-
-.accent {
-  @apply text-accent-orange;
+button {
+  @apply !appearance-none;
 }

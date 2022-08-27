@@ -47,6 +47,8 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+    lifts         Lift[]
+    Workout       Workout[]
 }
 
 model VerificationToken {
@@ -55,4 +57,42 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+enum WeightUnit {
+    KG
+    LB
+}
+
+model Lift {
+    id          String     @id @default(cuid())
+    name        String
+    current_max Float
+    weight_unit WeightUnit @default(LB)
+    user_id     String
+
+    user     User       @relation(fields: [user_id], references: [id], onDelete: Cascade)
+    Exercise Exercise[]
+}
+
+model Workout {
+    id      String @id @default(cuid())
+    user_id String
+
+    user     User       @relation(fields: [user_id], references: [id], onDelete: Cascade)
+    exercise Exercise[]
+}
+
+model Exercise {
+    id         String @id @default(cuid())
+    sets       Int
+    reps       Int
+    percentage Int
+    variation  String
+
+    lift_id String
+    lift    Lift   @relation(fields: [lift_id], references: [id], onDelete: Cascade)
+
+    workout_id String
+    workouts   Workout @relation(fields: [workout_id], references: [id], onDelete: Cascade)
 }

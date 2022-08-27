@@ -11,13 +11,11 @@ interface SelectProps extends React.InputHTMLAttributes<HTMLSelectElement> {
   label?: string;
   children: React.ReactNode;
   defaultValue?: string;
-  showLabel?: boolean;
-  secondaryLabel?: string;
-  error?: string | undefined;
 }
 
 interface SelectComponent extends React.ForwardRefExoticComponent<SelectProps> {
   Option: typeof Option;
+  Group: typeof Group;
 }
 
 export interface OptionProps {
@@ -27,25 +25,24 @@ export interface OptionProps {
   disabled?: boolean;
 }
 
+export interface GroupProps {
+  label: string;
+  children: React.ReactNode;
+}
+
 const Option = ({ value, children, ...rest }: OptionProps) => (
   <option value={value} {...rest}>
     {children}
   </option>
 );
 
+const Group = ({ label, children }: GroupProps) => (
+  <optgroup label={label}>{children}</optgroup>
+);
+
 export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
   (
-    {
-      name,
-      label,
-      children,
-      defaultValue,
-      showLabel,
-      className,
-      error,
-      secondaryLabel,
-      ...rest
-    }: SelectProps,
+    { name, label, children, defaultValue, className, ...rest }: SelectProps,
     ref: React.Ref<HTMLSelectElement>
   ) => (
     <div
@@ -54,17 +51,14 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         className
       )}
     >
-      {showLabel && (
-        <div className="flex justify-between">
-          <LabelPrimitive.Label htmlFor={name} className="block font-bold">
-            {label}
-          </LabelPrimitive.Label>
+      <div className="flex justify-between">
+        <LabelPrimitive.Label htmlFor={name} className="block font-bold">
+          {label}
+        </LabelPrimitive.Label>
+      </div>
 
-          {error && error}
-        </div>
-      )}
       <select
-        className="focus:shadow-input bg-chevron bg-right-1 relative h-10 w-full select-none appearance-none rounded border border-solid border-transparent bg-gray-500 bg-no-repeat pl-3 pr-6 font-semibold !text-white transition-all valid:text-gray-300 invalid:text-gray-800 focus:border-blue-100  focus:outline-none disabled:cursor-not-allowed"
+        className="bg-chevron focus:ring-2 h-8 w-full rounded border border-solid border-neutral-700 dark:bg-neutral-700 px-3 text-gray-800 dark:text-white transition-all placeholder:dark:text-gray-300 cursor-pointer focus:outline-none"
         defaultValue={defaultValue}
         name={name}
         ref={ref}
@@ -72,13 +66,10 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
       >
         {children}
       </select>
-
-      {secondaryLabel && (
-        <p className="block text-sm font-bold">{secondaryLabel}</p>
-      )}
     </div>
   )
 ) as SelectComponent;
 
 Select.displayName = 'Select';
 Select.Option = Option;
+Select.Group = Group;

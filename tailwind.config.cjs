@@ -6,35 +6,16 @@ module.exports = {
       center: true,
       margin: '1.25rem',
     },
+    fontFamily: {
+      sans: [
+        'Inter',
+        '-apple-system',
+        'BlinkMacSystemFont',
+        'Helvetica Neue',
+        'sans-serif',
+      ],
+    },
     extend: {
-      boxShadow: ({ theme }) => ({
-        input: `0px 0px 4px ${theme('colors.blue.100')}`,
-      }),
-      colors: {
-        gray: {
-          100: '#111111',
-          200: '#222222',
-          300: '#333333',
-        },
-        light: {
-          100: '#f6f4ee',
-        },
-        accent: {
-          orange: '#904D27',
-          green: '#415737',
-          beige: '#F6F4EE',
-        },
-        spotify: '#1db954',
-      },
-      fontFamily: {
-        sans: [
-          'Inter',
-          '-apple-system',
-          'BlinkMacSystemFont',
-          'Helvetica Neue',
-          'sans-serif',
-        ],
-      },
       fontSize: {
         h1: '3.25rem',
         h2: '2.75rem',
@@ -58,9 +39,29 @@ module.exports = {
         '1/4': '25%',
         '2/5': '20%',
       },
+      keyframes: {
+        'fade-in': {
+          '0%': { opacity: 0 },
+          '100%': { opacity: 1 },
+        },
+        'fade-out': {
+          '0%': { opacity: 1 },
+          '100%': { opacity: 0 },
+        },
+        'fade-up': {
+          '0%': { opacity: 0, transform: 'translateY(5px)' },
+          '100%': { opacity: 1, transform: 'translateY(0)' },
+        },
+        'fade-down': {
+          '0%': { opacity: 0, transform: 'translateY(0px)' },
+          '100%': { opacity: 1, transform: 'translateY(5px)' },
+        },
+      },
       animation: {
-        fadeIn: 'fadeIn 200ms ease-in-out forwards',
-        fadeOut: 'fadeOut 200ms ease-in-out forwards',
+        'fade-in': 'fade-in 200ms ease-in-out forwards',
+        'fade-out': 'fade-out 200ms ease-in-out forwards',
+        'fade-up': 'fade-up 200ms ease-in-out forwards',
+        'fade-down': 'fade-down 200ms ease-in-out forwards',
       },
     },
   },

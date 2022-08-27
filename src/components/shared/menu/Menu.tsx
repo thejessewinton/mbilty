@@ -12,11 +12,11 @@ type ItemProps = {
 };
 
 interface MenuProps {
+  className?: string;
   items: ItemProps[];
-  orientation?: 'horizontal' | 'vertical';
 }
 
-export const Menu = ({ items, orientation = 'horizontal' }: MenuProps) => {
+export const Menu = ({ items, className }: MenuProps) => {
   const router = useRouter();
 
   return (
@@ -33,23 +33,15 @@ export const Menu = ({ items, orientation = 'horizontal' }: MenuProps) => {
           </Select.Option>
         ))}
       </Select>
-      <div
-        className={classNames(
-          'hidden lg:flex',
-          orientation === 'vertical' ? 'mr-6 w-1/4 lg:flex-col' : 'lg:flex-row'
-        )}
-      >
+      <div className={classNames('hidden lg:flex', className)}>
         {items.map((item: ItemProps) => (
           <Link
             to={item.to}
             key={item.to}
             className={classNames(
-              'p-4 text-white transition-colors hover:text-white',
-              orientation === 'horizontal' && 'border-b-2',
-              router.asPath === item.to && orientation === 'vertical'
-                ? 'font-bold text-white'
-                : router.asPath === item.to && orientation === 'horizontal'
-                ? 'border-accent-orange font-bold text-white'
+              'px-6 py-2 border-b-2 dark:text-white transition-colors hover:dark:text-zinc-400',
+              router.asPath === item.to
+                ? 'border-white font-bold'
                 : 'border-transparent'
             )}
           >

@@ -1,5 +1,4 @@
-import { Button } from '@components/shared/button/Button';
-import { trpc } from '@utils/trpc';
+import { trpc } from 'src/client-data/utils/trpc';
 import { GetServerSideProps, NextPage } from 'next';
 import { useForm } from 'react-hook-form';
 import { prisma } from '@server/db/client';
@@ -8,6 +7,7 @@ import { authOptions } from './api/auth/[...nextauth]';
 import { Input } from '@components/shared/input/Input';
 import toast from 'react-hot-toast';
 import { NextSeo } from 'next-seo';
+import { Button } from '@components/shared/button/Button';
 
 type ProfilePage = NextPage & { user: { name: string; email: string } };
 
@@ -35,15 +35,13 @@ const Profile = ({ user }: ProfilePage) => {
   return (
     <>
       <NextSeo title="Profile" />
-      <div className="mx-auto max-w-2xl w-full">
-        <h2 className="mb-10">Edit Profile</h2>
+      <div className="mx-auto max-w-2xl w-full mt-12">
+        <h1 className="mb-10 text-lg font-medium">Edit Profile</h1>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
-          <Input label="Name" showLabel type="text" {...register('name')} />
-          <Input label="Email" showLabel type="email" {...register('email')} />
+          <Input label="Name" type="text" {...register('name')} />
+          <Input label="Email" type="email" {...register('email')} />
 
-          <Button type="submit" className="max-w-[150px]">
-            Save
-          </Button>
+          <Button type="submit">Save</Button>
         </form>
       </div>
     </>
@@ -63,6 +61,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   return {
     props: {
       user,
+      session,
     },
   };
 };

@@ -39,6 +39,9 @@ module.exports = {
         '1/4': '25%',
         '2/5': '20%',
       },
+      backgroundPosition: {
+        'right-1': 'right 0.5rem center',
+      },
       keyframes: {
         'fade-in': {
           '0%': { opacity: 0 },

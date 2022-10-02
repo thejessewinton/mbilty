@@ -3,6 +3,7 @@ import { Dropdown } from '@components/shared/dropdown/Dropdown';
 import { Avatar } from '@components/shared/avatar/Avatar';
 import { signOut, useSession } from 'next-auth/react';
 import { Menu } from '@components/shared/menu/Menu';
+import { navigation } from 'src/client-data/data/navigation';
 
 const UserActions = () => {
   const { data: session } = useSession();
@@ -50,15 +51,7 @@ export const Header = () => {
           <UserActions />
         </div>
 
-        <Menu
-          className="mt-6"
-          items={[
-            { to: '/', label: 'Dashboard' },
-            { to: '/lifts', label: 'Lifts' },
-            { to: '/workouts', label: 'Workouts' },
-            { to: '/mobility', label: 'Mobility' },
-          ]}
-        />
+        <Menu className="mt-6" items={navigation} />
       </header>
     </div>
   );

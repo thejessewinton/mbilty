@@ -5,6 +5,8 @@ import type { AppRouter } from '../server/router';
 
 import '../styles/globals.css';
 
+import { httpBatchLink } from '@trpc/client/links/httpBatchLink';
+import { loggerLink } from '@trpc/client/links/loggerLink';
 import type { AppType } from 'next/dist/shared/lib/utils';
 import { SessionProvider } from 'next-auth/react';
 import superjson from 'superjson';
@@ -16,8 +18,12 @@ import {
   SkipToContent,
 } from '@components/shared/skip-to-content/SkipToContent';
 import { Header } from '@components/layout/header/Header';
+import { Dialog } from '@components/shared/dialog/Dialog';
+import { useDialogStore } from 'src/client-data/state/use-dialog-store';
 
 const App: AppType = ({ Component, pageProps: { session, ...pageProps } }) => {
+  const { isOpen, handleDialogClose, dialogContent } = useDialogStore();
+
   return (
     <>
       <DefaultSeo {...config} />
@@ -42,6 +48,9 @@ const App: AppType = ({ Component, pageProps: { session, ...pageProps } }) => {
           />
 
           <Component {...pageProps} />
+          <Dialog open={isOpen} onOpenChange={handleDialogClose}>
+            {dialogContent}
+          </Dialog>
         </div>
       </SessionProvider>
     </>
@@ -62,8 +71,17 @@ export default withTRPC<AppRouter>({
      */
     const url = `${getBaseUrl()}/api/trpc`;
 
+    const links = [
+      loggerLink(),
+      httpBatchLink({
+        maxBatchSize: 10,
+        url,
+      }),
+    ];
+
     return {
       url,
+      links,
       transformer: superjson,
       /**
        * @link https://react-query.tanstack.com/reference/QueryClient
@@ -74,5 +92,5 @@ export default withTRPC<AppRouter>({
   /**
    * @link https://trpc.io/docs/ssr
    */
-  ssr: false,
+  ssr: true,
 })(App);

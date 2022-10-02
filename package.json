@@ -3,16 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "run-p dev:*",
-    "dev:next": "next dev",
-    "dev:connect": "pscale connect mbilty --port 3309",
+    "dev": "next dev",
     "db:push": "npx prisma db push",
     "db:generate": "npx prisma generate",
     "db": "run-p db:*",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "clean": "rm -rf .next node_modules yarn.lock"
   },
   "dependencies": {
     "@next-auth/prisma-adapter": "^1.0.4",
@@ -28,8 +27,8 @@
     "@trpc/react": "^9.27.1",
     "@trpc/server": "^9.27.1",
     "clsx": "^1.2.1",
-    "next": "^12.2.5",
-    "next-auth": "^4.10.3",
+    "next": "^12.3.1",
+    "next-auth": "^4.12.2",
     "next-seo": "^5.5.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",

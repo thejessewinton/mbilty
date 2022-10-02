@@ -4,7 +4,6 @@ import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { Cross1Icon } from '@radix-ui/react-icons';
 
 interface DialogProps {
-  title: string;
   open?: boolean;
   onOpenChange?: (b: boolean) => void;
   description?: string;
@@ -14,7 +13,6 @@ interface DialogProps {
 }
 
 export const Dialog = ({
-  title,
   description,
   open,
   onOpenChange,
@@ -25,16 +23,16 @@ export const Dialog = ({
     <DialogPrimitive.Root open={open} onOpenChange={onOpenChange}>
       <DialogPrimitive.Trigger asChild>{trigger}</DialogPrimitive.Trigger>
       <DialogPrimitive.Portal>
-        <DialogPrimitive.Overlay className="motion-safe:animate-fade-in fixed inset-0 z-auto bg-black bg-opacity-60 backdrop-blur transition-all" />
-        <DialogPrimitive.Content className="motion-safe:animate-fade-in border-neutral-700 bg-neutral-900 fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 rounded-md border p-6 lg:min-w-[600px]">
+        <DialogPrimitive.Overlay className="motion-safe:animate-fade-in fixed inset-0 z-auto bg-white dark:bg-black bg-opacity-60 backdrop-blur transition-all" />
+        <DialogPrimitive.Content className="motion-safe:animate-fade-in bg-neutral-100 dark:border-neutral-700 dark:bg-neutral-900 fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 rounded-md border p-6 lg:min-w-[600px]">
           <div className="flex flex-col gap-3">
             <header className="flex items-center justify-between">
               <DialogPrimitive.Title asChild>
-                <h4 className="font-bold text-lg">{title}</h4>
+                <h4 className="font-bold text-lg">Dialog</h4>
               </DialogPrimitive.Title>
 
-              <DialogPrimitive.Close className="flex cursor-pointer items-center justify-center rounded-full p-3 transition-colors hover:bg-neutral-800">
-                <Cross1Icon className="text-white" />
+              <DialogPrimitive.Close className="flex cursor-pointer items-center justify-center rounded-full p-3 transition-colors hover:bg-neutral-200 hover:dark:bg-neutral-800">
+                <Cross1Icon className="text-neutral-900 dark:text-white" />
               </DialogPrimitive.Close>
             </header>
 

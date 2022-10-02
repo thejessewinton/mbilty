@@ -9,7 +9,7 @@ html {
 }
 
 body {
-  @apply relative m-0 w-screen text-base font-normal leading-6 bg-white text-gray-800 dark:bg-neutral-800 dark:text-white;
+  @apply relative m-0 w-screen text-base font-normal leading-6 bg-white text-neutral-800 dark:bg-neutral-800 dark:text-white;
 }
 
 a {

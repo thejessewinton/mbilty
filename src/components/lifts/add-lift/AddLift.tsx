@@ -10,17 +10,14 @@ import { exercises } from 'src/client-data/data/exercises';
 import { useDialogStore } from 'src/client-data/state/use-dialog-store';
 
 export const AddLift = () => {
-  const { submitting, setSubmitting, setDialog } = useDialogStore();
   const ctx = trpc.useContext();
+  const { handleDialogClose } = useDialogStore();
 
   const lifts = trpc.useMutation(['lifts.add-lift'], {
-    onMutate: () => {
-      setSubmitting(true);
-    },
     onSuccess: () => {
       ctx.invalidateQueries(['lifts.get-lifts']);
       toast.success('Lift added.');
-      setDialog(false);
+      handleDialogClose();
     },
     onError: () => {
       toast.error('Error adding lift.');
@@ -76,7 +73,7 @@ export const AddLift = () => {
       </div>
 
       <Button type="submit" className="!bg-neutral-800">
-        {submitting ? <Spinner /> : 'Save'}
+        {lifts.isLoading ? <Spinner /> : 'Save'}
       </Button>
     </form>
   );

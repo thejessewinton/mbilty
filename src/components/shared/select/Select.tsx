@@ -8,7 +8,7 @@ type Select = { children: React.ReactNode } & { Option: OptionProps };
 
 interface SelectProps extends React.InputHTMLAttributes<HTMLSelectElement> {
   name: string;
-  label?: string;
+  label: string;
   children: React.ReactNode;
   defaultValue?: string;
 }
@@ -58,7 +58,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
       </div>
 
       <select
-        className="bg-chevron focus:ring-2 h-8 w-full rounded border border-solid border-neutral-700 dark:bg-neutral-700 px-3 text-gray-800 dark:text-white transition-all placeholder:dark:text-gray-300 cursor-pointer focus:outline-none"
+        className="bg-chevron bg-right-1 focus:ring-2 h-8 w-full rounded border border-solid border-neutral-700 dark:bg-neutral-700 px-2 text-gray-800 dark:text-white transition-all placeholder:dark:text-gray-300 cursor-pointer focus:outline-none"
         defaultValue={defaultValue}
         name={name}
         ref={ref}

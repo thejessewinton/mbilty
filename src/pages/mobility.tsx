@@ -1,6 +1,4 @@
-import type { GetServerSideProps, NextPage } from 'next';
-import { unstable_getServerSession } from 'next-auth';
-import { authOptions } from './api/auth/[...nextauth]';
+import type { NextPage } from 'next';
 
 const Index: NextPage = () => {
   return (
@@ -11,13 +9,3 @@ const Index: NextPage = () => {
 };
 
 export default Index;
-
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const session = await unstable_getServerSession(req, res, authOptions);
-
-  return {
-    props: {
-      session,
-    },
-  };
-};

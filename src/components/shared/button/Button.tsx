@@ -24,7 +24,7 @@ export const Button = ({
   const isExternal = isLink && /^((https?:)?\/\/|[0-9a-zA-Z]+:)/.test(to || '');
 
   const buttonStyles = classNames(
-    'py-2 px-4 max-h-12 w-fit h-fit font-medium rounded-md !bg-neutral-900 text-white transition-colors hover:!bg-neutral-700',
+    'py-2 px-4 max-h-12 w-fit h-fit font-semibold rounded-md !bg-sky-500 text-white transition-colors hover:!bg-sky-600',
     className
   );
 

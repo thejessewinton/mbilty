@@ -15,7 +15,7 @@ datasource db {
 // Necessary for Next auth
 model Account {
     id                String  @id @default(cuid())
-    userId            String
+    userId            String  @map("user_id")
     type              String
     provider          String
     providerAccountId String
@@ -40,15 +40,16 @@ model Session {
 }
 
 model User {
-    id            String    @id @default(cuid())
+    id            String      @id @default(cuid())
     name          String?
-    email         String?   @unique
-    emailVerified DateTime?
+    email         String?     @unique
+    emailVerified DateTime?   @map("email_verified")
+    weight_unit   WeightUnit? @default(LB)
     image         String?
     accounts      Account[]
     sessions      Session[]
     lifts         Lift[]
-    Workout       Workout[]
+    workout       Workout[]
 }
 
 model VerificationToken {
@@ -70,9 +71,8 @@ model Lift {
     current_max Float
     weight_unit WeightUnit @default(LB)
     user_id     String
-
-    user     User       @relation(fields: [user_id], references: [id], onDelete: Cascade)
-    Exercise Exercise[]
+    user        User       @relation(fields: [user_id], references: [id], onDelete: Cascade)
+    exercise    Exercise[]
 }
 
 model Workout {
@@ -84,15 +84,13 @@ model Workout {
 }
 
 model Exercise {
-    id         String @id @default(cuid())
+    id         String  @id @default(cuid())
     sets       Int
     reps       Int
     percentage Int
     variation  String
-
-    lift_id String
-    lift    Lift   @relation(fields: [lift_id], references: [id], onDelete: Cascade)
-
+    lift_id    String
+    lift       Lift    @relation(fields: [lift_id], references: [id], onDelete: Cascade)
     workout_id String
     workouts   Workout @relation(fields: [workout_id], references: [id], onDelete: Cascade)
 }

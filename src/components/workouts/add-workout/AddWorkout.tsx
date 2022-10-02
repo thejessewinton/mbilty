@@ -10,19 +10,16 @@ import { Input } from '@components/shared/input/Input';
 import { Select } from '@components/shared/select/Select';
 
 export const AddWorkout = () => {
-  const { submitting, setSubmitting, setDialog } = useDialogStore();
+  const { handleDialogClose } = useDialogStore();
   const ctx = trpc.useContext();
 
   const lifts = trpc.useQuery(['lifts.get-lifts']);
 
   const { mutate } = trpc.useMutation(['workouts.add-workout'], {
-    onMutate: () => {
-      setSubmitting(true);
-    },
     onSuccess: () => {
       ctx.invalidateQueries(['lifts.get-lifts']);
       toast.success('Lift added.');
-      setDialog(false);
+      handleDialogClose();
     },
     onError: () => {
       toast.error('Error adding lift.');
@@ -77,7 +74,7 @@ export const AddWorkout = () => {
     >
       {fields.map((item, index) => {
         return (
-          <div className="py-6" key={item.sets}>
+          <div key={item.sets}>
             <div className="mb-6 flex justify-between gap-4">
               <div className="flex items-center">
                 <button
@@ -85,13 +82,13 @@ export const AddWorkout = () => {
                   title="Remove item"
                   type="button"
                 >
-                  <Cross1Icon className="text-white" />
+                  <Cross1Icon className="dark:text-white" />
                 </button>
               </div>
             </div>
 
             <div className="flex flex-col gap-6">
-              <Select {...register(`exercises.${index}.lift_id`)}>
+              <Select {...register(`exercises.${index}.lift_id`)} label="Lift">
                 <option value="">Select a lift</option>
                 {lifts.data?.lifts.map((lift) => (
                   <Select.Option key={lift.id} value={lift.id}>
@@ -130,7 +127,7 @@ export const AddWorkout = () => {
         <Button onClick={() => append(initialValues)}>Add exercise</Button>
 
         <Button type="submit" className="!bg-neutral-800">
-          {submitting ? <Spinner /> : 'Save'}
+          {lifts.isLoading ? <Spinner /> : 'Save'}
         </Button>
       </div>
     </form>

@@ -5,17 +5,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
 
 html {
-  @apply scroll-smooth;
+    @apply scroll-smooth;
 }
 
 body {
-  @apply relative m-0 w-screen text-base font-normal leading-6 bg-white text-neutral-800 dark:bg-neutral-800 dark:text-white;
+    @apply relative m-0 w-screen bg-white text-base font-normal leading-6 text-neutral-800 dark:bg-neutral-800 dark:text-white;
 }
 
 a {
-  @apply no-underline transition-colors;
+    @apply no-underline transition-colors;
 }
 
 button {
-  @apply !appearance-none;
+    @apply !appearance-none;
 }

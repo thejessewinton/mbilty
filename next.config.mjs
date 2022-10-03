@@ -7,13 +7,13 @@
  * @constraint {{import('next').NextConfig}}
  */
 function defineNextConfig(config) {
-  return config;
+    return config;
 }
 
 export default defineNextConfig({
-  reactStrictMode: true,
-  swcMinify: true,
-  images: {
-    domains: ['pbs.twimg.com'],
-  },
+    reactStrictMode: true,
+    swcMinify: true,
+    images: {
+        domains: ['pbs.twimg.com'],
+    },
 });

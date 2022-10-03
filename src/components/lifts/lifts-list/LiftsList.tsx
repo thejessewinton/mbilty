@@ -1,6 +1,6 @@
 import type { Lift } from '@prisma/client';
 import { Cross1Icon } from '@radix-ui/react-icons';
-import { inferQueryOutput, trpc } from 'src/client-data/utils/trpc';
+import { inferQueryOutput, trpc } from '@utils/trpc';
 import toast from 'react-hot-toast';
 import { Spinner } from '@components/shared/spinner/Spinner';
 
@@ -18,12 +18,12 @@ const Lift = ({
   });
 
   return (
-    <tr className="border-b dark:border-neutral-700">
+    <tr className="border-b dark:border-neutral-700 ">
       <td className="py-6 px-3">{lift.name}</td>
       <td className="py-6 px-3">
-        {lift.current_max}/{lift.weight_unit}
+        {lift.current_max} {lift.weight_unit.toLowerCase()}
       </td>
-      <td className="flex flex-grow py-6 px-3 justify-center">
+      <td className="self-end py-6 px-3 justify-center items-center">
         <button
           onClick={() => update.mutate({ id: lift.id })}
           className="mr-0 ml-auto"
